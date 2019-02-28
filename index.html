@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <title>Vue Todo</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1 style="color: red">Marvel Cinematic Universe</h1>
+    <!-- <p v-show="activeTodos.length === 0">You are done with all your tasks! Good job!</p> -->
+    
+    <h3>Sort By:</h3>
+    <div class="controls">
+      <button v-on:click="sortByName()">Name</button>
+      <button v-on:click="sortByRelease()">Release Date</button>
+      <button v-on:click="sortByRT()">Highest Score</button>
+      <button v-on:click="toggleCustomSort()">Custom Sort</button>
+      <!-- <button v-for="movie in movies">{{movie.title}}</button> -->
+    </div>
+    <div class="controls">
+      <button style="margin-right: 5px" v-for="sort in customSorts" v-on:click="customSort(sort)">{{sort.name}}</button>
+    </div>
+    <p v-show="isCustomSort">Drag and drop in whatever order you'd like and then name and add your sort!</p>
+    <form style="margin-top: 10px" v-show="isCustomSort" v-on:submit.prevent="addCustomSort">
+      <input type="text" v-model="customSortName">
+      <button type="submit">Add</button>
+    </form>
+    <div class="movies">
+    <ul>
+      <li v-for="movie in movies" v-bind:draggable="isCustomSort" v-on:dragstart="dragItem(movie)" v-on:dragover.prevent v-on:drop="dropItem(movie)">
+        <label >{{ movie.title }}</label>
+      </li>
+    </ul>
+    </div>
+  </div>
+  <footer>
+    <a href="https://github.com/carterdmorgan/creative-project-3">Github Repo</a>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
